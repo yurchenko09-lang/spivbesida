@@ -55,7 +55,8 @@ async function process(){
     for (const f of files) { const r = await extractFile(f, log, { ocr }); results.push({ f, ...r }); }
     const mk = list => {
       const segs = list.flatMap(r => list.length > 1 && !sep ? [{ title: "", text: "" }, ...r.segs] : r.segs).filter(s => s.text);
-      const title = list[0].f.name.replace(/\.[^.]+$/, "").replace(/[_]+/g, " ").trim();
+      // назва: заголовок 1-го рівня з Word, інакше — ім'я файлу
+      const title = (list.length === 1 && list[0].title) || list[0].f.name.replace(/\.[^.]+$/, "").replace(/[_]+/g, " ").trim();
       return { id: newId(), title, course, blocks: toBlocks(segs), src: list.map(r => r.f.name), notes: list.map(r => `${r.f.name}: ${r.note}`) };
     };
     QUEUE = sep ? results.map(r => mk([r])) : [mk(results)];

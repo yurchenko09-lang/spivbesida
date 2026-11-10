@@ -105,7 +105,8 @@ async function fromDocx(file, log, opt){
       if (t) segs.push({ title: "", text: t }); scans++;
     }
   }
-  return { segs, scans, note: `${segs.length} розділів${scans ? `, розпізнано зображень: ${scans}` : ""}` };
+  const h1 = dom.body.querySelector("h1");
+  return { segs, scans, title: h1 ? clean(h1.textContent).slice(0, 150) : "", note: `${segs.length} розділів${scans ? `, розпізнано зображень: ${scans}` : ""}` };
 }
 
 // ---------- PowerPoint
