@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>ШІ-співбесіди — кабінет викладача</title>
+<link rel="stylesheet" href="css/style.css">
+<style>.wrap{max-width:1150px}.tabs{display:flex;gap:6px;margin:0 0 12px;flex-wrap:wrap}.tabs button{background:#e7ebe2;color:var(--ink)}.tabs button.on{background:var(--acc);color:#fff}
+.tp{border:1px solid var(--line);border-radius:10px;padding:12px;margin:8px 0}.tp.on{border-color:var(--acc2);background:#f7faf3}
+.chk{display:inline-flex;gap:6px;align-items:center;font-weight:400;margin:4px 12px 4px 0}
+.num{width:80px!important;display:inline-block}
+code{background:#eef1ea;padding:2px 6px;border-radius:6px;font-size:13px;word-break:break-all}
+tr.clk{cursor:pointer}tr.clk:hover{background:#f7f9f4}tr.sel{background:#eef4e6}
+.crit td{padding:4px}.crit .crn{min-width:170px}.crit input{padding:6px 8px}
+.msg{max-width:85%;padding:8px 12px;border-radius:12px;margin:6px 0;white-space:pre-wrap}
+.msg.ai{background:#f1f5ec;border:1px solid var(--line)}.msg.me{background:#e6eefb;margin-left:auto}
+.msg small{display:block;color:var(--mut);font-size:12px;margin-top:2px}
+.pill{display:inline-block;padding:2px 8px;border-radius:99px;font-size:12px;font-weight:600}
+.p-hi{background:#fbe3d9;color:var(--warn)}.p-mid{background:#fff3cd;color:#6b5200}.p-lo{background:#d8ecd0;color:var(--ok)}
+details.cfg summary{cursor:pointer;color:var(--acc);font-weight:600;margin-top:8px}
+.tp.st-ok{border-color:var(--ok);background:#f4faf2}.tp.st-warn{border-color:#e0b04a;background:#fffaf0}.tp.st-bad{border-color:var(--warn);background:#fdf3ee}.tp.st-off{border-color:var(--line)}
+.stbar{font-weight:700;padding:8px 12px;border-radius:8px;margin:-2px 0 8px}
+.stbar.st-ok{background:#d8ecd0;color:var(--ok)}.stbar.st-warn{background:#fff0c7;color:#7a5600}.stbar.st-bad{background:#fbe3d9;color:var(--warn)}.stbar.st-off{background:#eceee9;color:var(--mut)}
+.chkl{list-style:none;padding:0;margin:0 0 6px;display:flex;flex-wrap:wrap;gap:4px 16px;font-size:14px}.chkl li.ok{color:var(--ok)}.chkl li.no{color:var(--warn);font-weight:600}.chkl li.wn{color:#7a5600;font-weight:600}
+.pill.st-ok{background:#d8ecd0;color:var(--ok)}.pill.st-warn{background:#fff0c7;color:#7a5600}.pill.st-bad{background:#fbe3d9;color:var(--warn)}.pill.st-off{background:#eceee9;color:var(--mut)}
+#overview{margin:4px 0 12px}
+.msg.sys{margin:6px auto;max-width:90%;background:#fdf3ee;color:var(--warn);border:1px solid #f0c9b8;font-weight:600;font-size:14px;text-align:center}
+.awy{font-size:13px;color:#7a5600;background:#fff6dc;border-radius:8px;padding:3px 10px;margin:2px 0 6px;display:inline-block}
+mark.cp{background:#ffe58a;color:inherit;border-radius:3px;padding:0 1px}
+.gsum{margin:4px 0}.gsum .pill{margin-left:4px}
+tr.none td{color:var(--mut)}
+details.proto{border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:10px 0;background:#fff}
+details.ivform{margin-top:10px;border-top:1px dashed var(--line);padding-top:8px}details.ivform>summary{cursor:pointer;color:var(--acc);font-weight:600}
+.tp h3{font-size:17px}
+details.proto>summary{cursor:pointer;font-size:15px}details.proto[open]>summary{margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--line)}.blk{margin:10px 0}.blk .bt{font-weight:600;margin:6px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top"><h1>ШІ-співбесіди · кабінет викладача</h1><span class="sp"></span><span class="hint" id="who"></span></header>
+  <div id="demo"></div>
+  <div class="alert" id="alert"></div>
+  <div id="app"><div class="card"><p>Завантаження…</p></div></div>
+</div>
+<script type="module" src="js/cabinet.js"></script>
+</body>
+</html>
