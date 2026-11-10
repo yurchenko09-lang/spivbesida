@@ -10,7 +10,7 @@ header.top h1{font-size:18px;margin:0}
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
 .card+.card{margin-top:14px}
 label{display:block;font-weight:600;margin:12px 0 4px}
-input[type=text],input[type=datetime-local],select,textarea{width:100%;padding:10px 12px;border:1px solid #c9d2c0;border-radius:10px;font:inherit;background:#fff}
+input[type=text],input[type=email],input[type=password],input[type=datetime-local],select,textarea{width:100%;padding:10px 12px;border:1px solid #c9d2c0;border-radius:10px;font:inherit;background:#fff}
 textarea{min-height:130px;resize:vertical}
 button{font:inherit;border:0;border-radius:10px;padding:11px 18px;cursor:pointer;background:var(--acc);color:#fff;font-weight:600}
 button.sec{background:#e7ebe2;color:var(--ink)}
