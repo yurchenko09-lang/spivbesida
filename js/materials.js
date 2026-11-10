@@ -88,7 +88,7 @@ function renderEditor(){
     <p id="eStat" class="hint" style="margin:10px 0">${statLine()}</p>
     <div id="eBlocks">${EDIT.blocks.map((b, i) => blockHtml(b, i)).join("")}</div>
     <div class="row" style="margin-top:8px"><button class="sm sec" data-mact="addBlock">+ Додати блок</button></div>
-    <div class="row" style="margin-top:16px"><button class="sec" data-mact="cancel">${EDIT.isNew ? (left ? "Пропустити цей файл" : "Скасувати") : "← До списку"}</button><span class="sp"></span><button data-mact="save">Зберегти матеріал</button></div></div>`;
+    <div class="row" style="margin-top:16px"><button class="sec" data-mact="cancel">${EDIT.isNew ? (left ? "Пропустити цей файл" : "Скасувати") : "← До списку"}</button><span class="sp"></span>${EDIT.isNew && left ? `<button class="sec" data-mact="saveAll" title="Зберегти цей і всі файли з черги одразу, з назвами з файлів. Перевірити й виправити текст можна згодом: «Переглянути / змінити».">Зберегти всі ${left + 1} без перегляду</button>` : ""}<button data-mact="save">Зберегти матеріал</button></div></div>`;
   CTX.app.querySelectorAll(".bt,.bx").forEach(el => el.addEventListener("input", () => { sync(); $("eStat").innerHTML = statLine(); const c = el.closest(".blk").querySelector(".bc"); if (c) c.textContent = el.closest(".blk").querySelector(".bx").value.length + " симв."; }));
 }
 function blockHtml(b, i){
@@ -102,6 +102,23 @@ function sync(){
   if (!$("eTitle")) return;
   EDIT.title = $("eTitle").value.trim(); EDIT.course = $("eCourse").value.trim();
   EDIT.blocks = [...CTX.app.querySelectorAll(".blk")].map(el => ({ title: el.querySelector(".bt").value.trim(), text: el.querySelector(".bx").value.trim() }));
+}
+// зберегти всі з черги одразу (напр., 60 параграфів підручника)
+async function saveAll(){
+  sync();
+  const all = [EDIT, ...QUEUE];
+  if (!confirm(`Зберегти ${all.length} матеріалів без перегляду? Перевірити кожен можна згодом кнопкою «Переглянути / змінити».`)) return;
+  let ok = 0; const bad = [];
+  for (const m of all) {
+    const blocks = (m.blocks || []).filter(b => b.text).map((b, i) => ({ title: b.title || b.text.split("\n")[0].slice(0, 80) || `Частина ${i + 1}`, text: b.text }));
+    const data = { title: m.title, course: m.course, blocks, src: m.src || [], chars: blocks.reduce((a, b) => a + b.text.length, 0), created: new Date().toISOString() };
+    if (!m.title || !m.course || !blocks.length || JSON.stringify(data).length > MAX_DOC) { bad.push(m.title || (m.src || []).join(", ")); continue; }
+    log(`Зберігаю ${ok + 1} з ${all.length}…`);
+    try { await st.saveMaterial(m.id, data); ok++; } catch(e){ bad.push(m.title); }
+  }
+  QUEUE = []; EDIT = null;
+  CTX.warn(`Збережено матеріалів: ${ok}${bad.length ? `. Не збережено: ${bad.map(esc).join(", ")}` : ""}`);
+  await CTX.reload();
 }
 async function saveEdit(){
   sync();
@@ -138,5 +155,6 @@ document.addEventListener("click", async e => {
   if (act === "addBlock") { sync(); EDIT.blocks.push({ title: "", text: "" }); renderEditor(); CTX.app.querySelector(".blk:last-child .bt").focus(); return; }
   if (act === "cancel") { EDIT = QUEUE.length ? { ...QUEUE.shift(), isNew: true } : null; return CTX.reload(); }
   if (act === "save") return saveEdit();
+  if (act === "saveAll") return saveAll();
 });
 export const editing = () => !!EDIT;
